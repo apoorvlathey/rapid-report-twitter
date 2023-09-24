@@ -23,69 +23,20 @@ async function performActions() {
 
     console.log("[RapidReport: initialized...]");
 
-    // "Start report"
-    let element = await waitForElement(
-      '[data-testid="OCF_CallToAction_Button"]'
+    let next_button = await waitForElement(
+      '[data-testid="ChoiceSelectionNextButton"]'
     );
-    element.click();
+    console.log("[RapidReport: reporting...]");
 
-    /* Who is this report for? */
+    let spam = await waitForElement('[aria-posinset="6"]');
+    spam.click();
 
-    // "Everyone on X"
-    element = await waitForElement('[aria-posinset="3"]');
-    element.click();
+    next_button.click();
 
-    // "Next"
-    element = await waitForElement('[data-testid="ChoiceSelectionNextButton"]');
-    element.click();
-
-    /* What is happening to everyone on X? */
-
-    // "Spam"
-    element = await waitForElement('[aria-posinset="3"]');
-    element.click();
-
-    // "Next"
-    element = await waitForElement('[data-testid="ChoiceSelectionNextButton"]');
-    element.click();
-
-    /* How is @scammer doing this? */
-
-    // "Posting misleading or deceptive links, leading to scams, phishing, or other malicious links"
-    element = await waitForElement('[aria-posinset="1"]');
-    element.click();
-
-    // Next
-    element = await waitForElement('[data-testid="ChoiceSelectionNextButton"]');
-    element.click();
-
-    /* It sounds like you want to make a report for platform manipulation and spam */
-
-    // "Yes, continue"
-    element = await waitForElement('[data-testid="ocfSettingsListNextButton"]');
-    element.click();
-
-    /* Let's make sure we have this right */
-
-    // "Submit"
-    element = await waitForElement('[data-testid="ocfSettingsListNextButton"]');
-    element.click();
-
-    /* Thanks for helping make X better for everyone */
-
-    // "Block @scammer"
-    const blockButton = await waitForElement(() => {
-      let buttons = document.querySelectorAll(
-        'div[role="button"] > div > span'
-      );
-      for (const btn of buttons) {
-        if (btn.innerHTML.includes("Block ")) {
-          return btn;
-        }
-      }
-      return null;
-    });
-    blockButton.click();
+    let block = await waitForElement(
+      '[data-viewportview="true"] [role="button"]:last-of-type'
+    );
+    block.click();
 
     console.log("[RapidReport: Report submitted!]");
   } catch (error) {

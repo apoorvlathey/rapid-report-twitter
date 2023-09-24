@@ -1,7 +1,7 @@
 {
   "name": "RapidReport for Twitter",
   "description": "Speed up the process of reporting scam posts on Twitter (X).",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "@apoorvlathey",
   "manifest_version": 3,
   "icons": {
